@@ -12,7 +12,8 @@ namespace TCAdminSubdomain.Events.Commands
     public class ServiceCommands : CommandBase
     {
         private readonly GeneralConfiguration _configuration =
-            new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration").GetConfiguration();
+            new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration")
+                .GetConfiguration();
 
         public override CommandResponse ProcessCommand(object sender, IntegrationEventArgs args)
         {
@@ -47,17 +48,16 @@ namespace TCAdminSubdomain.Events.Commands
         {
             if (_configuration.AfterServiceMoveAction == AfterServiceAction.DoNothing)
             {
-                return new CommandResponse(Globals.ModuleId, "Doing nothing.",
-                    ReturnStatus.SafeError);
+                return new CommandResponse(Globals.ModuleId, "Doing nothing.", ReturnStatus.SafeError);
             }
 
             var domainName = Globals.DomainParser.Get(service.Variables["SD-FullSubDomain"].ToString());
-            var dnsProvider = new DnsProviderType(int.Parse(service.Variables["SD-DnsProvider"].ToString())).DnsProvider;
+            var dnsProvider = new DnsProviderType(int.Parse(service.Variables["SD-DnsProvider"].ToString()))
+                .DnsProvider;
             var zoneExists = dnsProvider.ZoneExists(domainName.RegistrableDomain, ZoneSearchType.Name);
             if (!zoneExists)
             {
-                return new CommandResponse(Globals.ModuleId, "Zone does not exist",
-                    ReturnStatus.SafeError);
+                return new CommandResponse(Globals.ModuleId, "Zone does not exist", ReturnStatus.SafeError);
             }
 
             var dnsZone = dnsProvider.GetZone(domainName.RegistrableDomain, ZoneSearchType.Name);
@@ -75,7 +75,7 @@ namespace TCAdminSubdomain.Events.Commands
             return new CommandResponse(Globals.ModuleId, "Successfully reset subdomain",
                 ReturnStatus.Ok);
         }
-        
+
         private CommandResponse AfterDelete(Service service)
         {
             if (_configuration.AfterServiceDeletionAction == AfterServiceAction.DoNothing)
@@ -85,7 +85,8 @@ namespace TCAdminSubdomain.Events.Commands
             }
 
             var domainName = Globals.DomainParser.Get(service.Variables["SD-FullSubDomain"].ToString());
-            var dnsProvider = new DnsProviderType(int.Parse(service.Variables["SD-DnsProvider"].ToString())).DnsProvider;
+            var dnsProvider = new DnsProviderType(int.Parse(service.Variables["SD-DnsProvider"].ToString()))
+                .DnsProvider;
             var zoneExists = dnsProvider.ZoneExists(domainName.RegistrableDomain, ZoneSearchType.Name);
             if (!zoneExists)
             {
@@ -94,7 +95,7 @@ namespace TCAdminSubdomain.Events.Commands
             }
 
             var dnsZone = dnsProvider.GetZone(domainName.RegistrableDomain, ZoneSearchType.Name);
-            
+
             switch (_configuration.AfterServiceDeletionAction)
             {
                 case AfterServiceAction.DeleteSubDomain:

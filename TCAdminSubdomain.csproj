@@ -256,7 +256,9 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
+      <Content Include="install.sql" />
       <Content Include="Module.json" />
+      <Content Include="uninstall.sql" />
       <Content Include="Views\Game\Service\_ServiceStatus.Plugin.Subdomain.cshtml" />
       <Content Include="Views\TCAdminSubdomain.Controllers\Subdomain\CloudFlareConfigure.cshtml" />
       <Content Include="Views\TCAdminSubdomain.Controllers\Subdomain\Configure.cshtml" />
