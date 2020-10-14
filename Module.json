@@ -1,0 +1,11 @@
+﻿{
+  "MinimumTcAdminVersion": "2.0.158.0",
+  "SqlProfiles": {
+    "InstallSql": "install.sql",
+    "UpdateSql": "update.sql",
+    "UninstallSql": "uninstall.sql"
+  },
+  "Dll": "TCAdminSubdomain.dll",
+  "MasterOnly": true,
+  "Dependencies": ["RestSharp.dll", "FluentCloudflare.dll", "Nager.PublicSuffix.dll"]
+}

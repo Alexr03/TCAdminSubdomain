@@ -1,0 +1,72 @@
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
+@using Alexr03.Common.Misc.Enums
+@using Kendo.Mvc.UI
+@using TCAdmin.SDK.Web.MVC.Extensions
+@using TCAdminSubdomain.Configurations
+@using TCAdminSubdomain.Helpers
+@model TCAdminSubdomain.Configurations.GeneralConfiguration
+
+@using (Ajax.BeginForm(new AjaxOptions {OnSuccess = "TCAdmin.Ajax.ShowBasicDialog('Success', 'Successfully saved General settings'); document.body.style.cursor = 'default';", OnFailure = "TCAdmin.Ajax.HandleAjaxFailure"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="primary-toolbar">
+        @(Html.Kendo().ToolBar()
+            .Name("GCToolBar")
+            .Items(items =>
+            {
+                items.Add().Template(this.GetToolbarButton(Resources.Global.Save, "save"));
+                items.Add().Type(CommandType.Button).Icon("cancel").Text(Resources.Global.Cancel).Click("TCAdmin.Ajax.CancelClicked");
+            }))
+    </div>
+    <div class="primary-content">
+        <fieldset class="fieldset-form auto-focus">
+            @Html.ValidationSummary(true)
+            <ul>
+                <li>
+                    <dl>
+                        <h2>General Settings</h2>
+                        <dt>@Html.LabelFor(m => m.Prefix)</dt>
+                        <dd>@Html.Kendo().TextBoxFor(m => m.Prefix)@Html.ValidationMessageFor(m => m.Prefix)@Html.TooltipFor(m => m.Prefix)</dd>
+
+                        <dt>@Html.LabelFor(m => m.Postfix)</dt>
+                        <dd>@Html.Kendo().TextBoxFor(m => m.Postfix)@Html.ValidationMessageFor(m => m.Postfix)@Html.TooltipFor(m => m.Postfix)</dd>
+
+                        <dt>@Html.LabelFor(m => m.MinimumLength)</dt>
+                        <dd>@Html.Kendo().NumericTextBoxFor(m => m.MinimumLength).Format("#")@Html.ValidationMessageFor(m => m.MinimumLength)@Html.TooltipFor(m => m.MinimumLength)</dd>
+
+                        <dt>@Html.LabelFor(m => m.MaximumLength)</dt>
+                        <dd>@Html.Kendo().NumericTextBoxFor(m => m.MaximumLength).Format("#")@Html.ValidationMessageFor(m => m.MaximumLength)@Html.TooltipFor(m => m.MaximumLength)</dd>
+
+                        <dt>@Html.LabelFor(m => m.IllegalSubdomains)</dt>
+                        <dd>@Html.TextAreaFor(m => m.IllegalSubdomains, new {style = "width:600px;height:200px", @class = "k-textbox"})@Html.ValidationMessageFor(m => m.IllegalSubdomains)@Html.TooltipFor(m => m.IllegalSubdomains)</dd>
+
+                        <h4>Service Events</h4>
+                        <div>
+                            <p>
+                                After the service is <strong>MOVED</strong> @(Html.Kendo().DropDownListFor(m => m.AfterServiceMoveAction)
+                                                                                .BindTo(Enum.GetNames(typeof(AfterServiceAction)).Select(x => new DropDownListItem
+                                                                                {
+                                                                                    Text = ((AfterServiceAction) Enum.Parse(typeof(AfterServiceAction), x, true)).ToDescription(),
+                                                                                    Value = x
+                                                                                }))
+                                                                                .SelectedIndex((int)Model.AfterServiceMoveAction)
+                                                                                )
+                            </p>
+                            <p>
+                                After the service is <strong>DELETED</strong> @(Html.Kendo().DropDownListFor(m => m.AfterServiceDeletionAction)
+                                                                                  .BindTo(Enum.GetNames(typeof(AfterServiceAction)).Select(x => new DropDownListItem
+                                                                                  {
+                                                                                      Text = ((AfterServiceAction) Enum.Parse(typeof(AfterServiceAction), x, true)).ToDescription(),
+                                                                                      Value = x
+                                                                                  }))
+                                                                                  .SelectedIndex((int)Model.AfterServiceDeletionAction)
+                                                                                  )
+                            </p>
+                        </div>
+                    </dl>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+}

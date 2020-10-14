@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{1B9EF5CA-AAF5-438F-BE75-EF0077EA8E48}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>TCAdminSubdomain</RootNamespace>
+        <AssemblyName>TCAdminSubdomain</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="FluentCloudflare, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\FluentCloudflare.0.3.0\lib\netstandard2.0\FluentCloudflare.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Kendo.Mvc, Version=2020.3.915.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\Kendo.Mvc.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="mscorlib" />
+        <Reference Include="MySql.Data, Version=6.7.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+          <HintPath>..\packages\MySql.Data.6.7.9\lib\net45\MySql.Data.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Nager.PublicSuffix, Version=1.5.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Nager.PublicSuffix.1.5.1\lib\net461\Nager.PublicSuffix.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+          <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="RestSharp, Version=106.11.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75">
+          <HintPath>..\packages\RestSharp.106.11.4\lib\net452\RestSharp.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.ComponentModel.Composition" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Web" />
+        <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Xml" />
+        <Reference Include="TCAdmin.Basic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Basic.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.DatabaseProviders.MySql, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.DatabaseProviders.MySql.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.DatabaseProviders.Odbc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.DatabaseProviders.Odbc.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.DatabaseProviders.SqLite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.DatabaseProviders.SqLite.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.FtpServer.ModuleApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.FtpServer.ModuleApi.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.GameHosting.ModuleApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.GameHosting.ModuleApi.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.GameHosting.SDK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.GameHosting.SDK.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.GameHosting.SDK.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.GameHosting.SDK.Web.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.GameHosting.SDK.Web.References, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.GameHosting.SDK.Web.References.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.Helper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Helper.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.Interfaces, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Interfaces.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.LogProviders.Text, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.LogProviders.Text.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.SDK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.SDK.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.SDK.Language, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.SDK.Language.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.SDK.TimeZones, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.SDK.TimeZones.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.SDK.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.SDK.Web.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.SDK.Web.MVC, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.SDK.Web.MVC.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.SDK.Web.References, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.SDK.Web.References.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.Support.ModuleApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Support.ModuleApi.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.Support.SDK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Support.SDK.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.TaskScheduler.ModuleApi, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.TaskScheduler.ModuleApi.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.TaskScheduler.SDK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.TaskScheduler.SDK.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.Web.MVC, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Web.MVC.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.Web.MVC.Mods, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2425aa97c0ce5627">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.Web.MVC.Mods.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="TCAdmin.WebServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=336a280da999c339">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\TCAdmin.WebServer.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Telerik.Web.UI, Version=2012.3.1016.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4">
+          <HintPath>..\packages\TCAdmin.2.0.157.5-beta\lib\netstandard2.0\Telerik.Web.UI.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Configurations\CloudFlareConfiguration.cs" />
+        <Compile Include="Configurations\DnsProviderConfiguration.cs" />
+        <Compile Include="Configurations\Dynv6Configuration.cs" />
+        <Compile Include="Configurations\GeneralConfiguration.cs" />
+        <Compile Include="Controllers\SubdomainController.cs" />
+        <Compile Include="Dns\Clients\Dynv6Client.cs" />
+        <Compile Include="Dns\DnsProvider.cs" />
+        <Compile Include="Dns\Providers\CloudFlareProvider.cs" />
+        <Compile Include="Dns\Providers\Dynv6Provider.cs" />
+        <Compile Include="Events\Commands\ServiceCommands.cs" />
+        <Compile Include="Exceptions\SubdomainException.cs" />
+        <Compile Include="Globals.cs" />
+        <Compile Include="Helpers\Constants.cs" />
+        <Compile Include="Helpers\SubdomainHelper.cs" />
+        <Compile Include="Models\DnsZone.cs" />
+        <Compile Include="Models\Dynv6\Dynv6Zone.cs" />
+        <Compile Include="Models\Objects\DnsProviderType.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="app.config" />
+      <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Alexr03.Common\Alexr03.Common.csproj">
+        <Project>{f51453a6-0fef-4649-b1a4-57647de4a9df}</Project>
+        <Name>Alexr03.Common</Name>
+      </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include=".gitignore" />
+      <Content Include="Module.json" />
+      <Content Include="Views\Game\Service\_ServiceStatus.Plugin.Subdomain.cshtml" />
+      <Content Include="Views\TCAdminSubdomain.Controllers\Subdomain\CloudFlareConfigure.cshtml" />
+      <Content Include="Views\TCAdminSubdomain.Controllers\Subdomain\Configure.cshtml" />
+      <Content Include="Views\TCAdminSubdomain.Controllers\Subdomain\Dynv6Configure.cshtml" />
+      <Content Include="Views\TCAdminSubdomain.Controllers\Subdomain\GeneralConfigure.cshtml" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>

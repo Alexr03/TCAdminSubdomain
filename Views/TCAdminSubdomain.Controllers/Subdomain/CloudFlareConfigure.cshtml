@@ -1,0 +1,104 @@
+﻿@using System.Web.Mvc.Ajax
+@using System.Web.Mvc.Html
+@using Alexr03.Common.Web.Extensions
+@using Kendo.Mvc.UI
+@using TCAdmin.SDK.Web.MVC.Extensions
+@using TCAdminSubdomain.Configurations
+@using TCAdminSubdomain.Dns.Providers
+@using TCAdminSubdomain.Models.Objects
+@model TCAdminSubdomain.Configurations.CloudFlareConfiguration
+
+@{
+    var cloudflare = new DnsProviderType(1).DnsProvider;
+}
+
+@using (Ajax.BeginForm(new AjaxOptions {OnSuccess = "TCAdmin.Ajax.ShowBasicDialog('Success', 'Successfully saved CloudFlare settings'); document.body.style.cursor = 'default';", OnFailure = "TCAdmin.Ajax.HandleAjaxFailure"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="primary-toolbar">
+        @(Html.Kendo().ToolBar()
+            .Name("CFToolBar")
+            .Items(items =>
+            {
+                items.Add().Template(this.GetToolbarButton(Resources.Global.Save, "save"));
+                items.Add().Type(CommandType.Button).Icon("cancel").Text(Resources.Global.Cancel).Click("TCAdmin.Ajax.CancelClicked");
+            }))
+    </div>
+    <div class="primary-content">
+        <fieldset class="fieldset-form auto-focus">
+            @Html.ValidationSummary(true)
+            @Html.Hidden("id", new DnsProviderType().FindByType(typeof(CloudFlareProvider)).Id)
+            <ul>
+                <li>
+                    <dl>
+                        <h2>CloudFlare Settings</h2>
+                        <dt>@Html.LabelFor(m => m.Enabled)</dt>
+                        <dd>@Html.Kendo().SwitchFor(m => m.Enabled)</dd>
+
+                        <dt>@Html.LabelFor(m => m.Token)</dt>
+                        <dd>@Html.Kendo().TextBoxFor(m => m.Token).HtmlAttributes(new {type = "password"})@Html.ValidationMessageFor(m => m.Token)@Html.TooltipFor(m => m.Token)</dd>
+                        <div id="domainsList">
+                            <div class="domains-section k-content wide">
+                                <label for="availableDomains" id="domains">Avaiable Domains</label>
+                                <label for="allowedDomains" id="domains">Allowed Domains</label>
+                                @(Html.Kendo().ListBox()
+                                    .Name("availableDomains".Prefix(typeof(CloudFlareConfiguration)))
+                                    .Toolbar(toolbar =>
+                                    {
+                                        toolbar.Position(Kendo.Mvc.UI.Fluent.ListBoxToolbarPosition.Right);
+                                        toolbar.Tools(tools => tools
+                                            .TransferTo()
+                                            .TransferFrom()
+                                            .TransferAllTo()
+                                            .TransferAllFrom()
+                                            );
+                                    })
+                                    .ConnectWith("allowedDomains".Prefix(typeof(CloudFlareConfiguration), "_"))
+                                    .BindTo(cloudflare.GetAvailableZones())
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .Selectable(ListBoxSelectable.Single)
+                                    )
+
+                                @(Html.Kendo().ListBox()
+                                    .Name("allowedDomains".Prefix(typeof(CloudFlareConfiguration)))
+                                    .BindTo(cloudflare.GetAllowedZones())
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .Selectable(ListBoxSelectable.Single)
+                                    )
+                            </div>
+                        </div>
+                    </dl>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+}
+
+<style>
+    .domains-section label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    #domains {
+        width: 270px;
+    }
+
+    #domainsList .domains-section {
+        max-width: none;
+        width: 600px;
+    }
+
+    #domainsList .k-listbox {
+        width: 236px;
+        height: 350px;
+    }
+
+    #domainsList .k-listbox:first-of-type {
+        width: 270px;
+        margin-right: 1px;
+    }
+</style>

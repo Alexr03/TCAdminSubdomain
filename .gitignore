@@ -1,0 +1,7 @@
+﻿bin/
+obj/
+outputdeployment/
+*.zip
+*.user
+/.vs
+/packages

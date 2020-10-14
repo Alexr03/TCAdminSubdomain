@@ -1,0 +1,109 @@
+﻿@using Alexr03.Common.TCAdmin.Configuration
+@using Kendo.Mvc.UI
+@using TCAdmin.GameHosting.SDK.Objects
+@using TCAdminSubdomain
+@using TCAdminSubdomain.Configurations
+@using TCAdminSubdomain.Helpers
+@model Models.Game.ServiceModel
+@{
+    var generalConfiguration = new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration")
+        .GetConfiguration();
+    var subdomainValue = "";
+    var service = Service.GetSelectedService();
+    var subdomainSet = service.Variables.HasValue("SD-FullSubDomain");
+    if (subdomainSet)
+    {
+        subdomainValue = service.Variables["SD-FullSubDomain"].ToString();
+    }
+}
+
+<script>
+    let li = document.getElementById("ServiceInformation").getElementsByTagName("dl")[0].getElementsByTagName("dd")[0];
+    const node = document.createElement('div');
+    @if (subdomainSet)
+    {
+        <text>
+            node.innerHTML = `<dt>Subdomain</dt>
+                                <dd><strong>@subdomainValue</strong>
+                                @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;")
+                                <a id="updateSubdomainButton" style="margin-top:-10px;">Change</a>
+                                </dd>`
+        </text>
+    }
+    else
+    {
+        <text>
+            node.innerHTML = `<dt>Subdomain</dt>
+                                <dd><a id="updateSubdomainButton">Create</a></dd>
+                                `
+        </text>
+    }
+
+    li.parentNode.insertBefore(node, li.nextSibling);
+    
+    $(document).ready(function () {
+        $("#updateSubdomainButton").kendoButton({
+            icon: "link-horizontal",
+            click: function(e) {
+                $("#subdomainDialog").data("kendoDialog").open()
+            }
+        });
+    });
+</script>
+
+@(Html.Kendo().Dialog()
+    .Name("subdomainDialog")
+    .Visible(false)
+    .Title("Subdomain Creation")
+    .Content("<div>" +
+             Html.Kendo().TextBox().Name("subdomainBox").Value(subdomainValue).Readonly(subdomainSet).Placeholder("SubDomain").HtmlAttributes(new {maxlength = generalConfiguration.MaximumLength}).ToHtmlString() +
+             (!subdomainSet ? "<strong> .</strong>" + Html.Kendo().DropDownList().Name("baseDomain").BindTo(SubdomainHelper.GetBaseDomains()).OptionLabel("Select domain").HtmlAttributes(new {style = "width: 200px"}).ToHtmlString() : "") +
+             "</div>")
+    .Modal(true)
+    .Actions(actions =>
+    {
+        actions.Add().Text("Cancel");
+        if (subdomainSet)
+        {
+            actions.Add().Text("Delete Subdomain").Primary(true).Action("deleteSubdomain");
+        }
+        else
+        {
+            actions.Add().Text("Apply Subdomain").Primary(true).Action("applySubdomain");
+        }
+    }))
+
+<script>
+    function applySubdomain(){
+        kendo.ui.progress($(document.body), true);
+        $.ajax({
+            type: "POST",
+            url: "/Subdomain/Create/@Model.ServiceId",
+            data: JSON.stringify({ "subdomain": $("#subdomainBox")[0].value, baseDomain: $("#baseDomain").data("kendoDropDownList").value() }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: Alexr03.Common.HandleAjaxFailure,
+            success: function(e){
+                Alexr03.Common.HandleAjaxSuccess(e, function() {
+                    window.location.reload(false);
+                });
+            }
+        });
+    }
+    
+    function deleteSubdomain(){
+        kendo.ui.progress($(document.body), true);
+        $.ajax({
+            type: "DELETE",
+            url: "/Subdomain/Delete/@Model.ServiceId",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: Alexr03.Common.HandleAjaxFailure,
+            success: function(e){
+                Alexr03.Common.HandleAjaxSuccess(e, function() {
+                    window.location.reload(false);
+                });
+            }        
+        });
+    }
+</script>

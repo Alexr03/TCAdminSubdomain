@@ -1,0 +1,25 @@
+﻿@using System.Web.Mvc.Html
+@using Kendo.Mvc.UI
+@using TCAdmin.SDK.Web.MVC.Extensions
+@using TCAdminSubdomain.Models.Objects
+@{
+    Layout = this.GetTemplateFile("Shared/Main.cshtml", true);
+}
+
+@section sidebar{
+    @Html.Partial("_DefaultSidebar")
+}
+
+@(Html.Kendo().TabStrip()
+    .Name("tabstrip")
+    .Items(items =>
+    {
+        items.Add().Text("General Configuration").LoadContentFrom("GeneralConfigure", "Subdomain");
+        foreach (var providerType in DnsProviderType.GetDnsProviderTypes().Where(providerType => !string.IsNullOrEmpty(providerType.Configuration.View)))
+        {
+            items.Add().Text(string.Format("{0} Configuration", providerType.DnsProvider.Name)).LoadContentFrom("ProviderConfigure", "Subdomain", new {id = providerType.DnsProviderId});
+        }
+    })
+    .SelectedIndex(0)
+    .TabPosition(TabStripTabPosition.Left)
+    )
