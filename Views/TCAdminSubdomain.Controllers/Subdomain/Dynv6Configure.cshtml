@@ -1,14 +1,16 @@
 ﻿@using System.Web.Mvc.Ajax
 @using System.Web.Mvc.Html
+@using Alexr03.Common.TCAdmin.Objects
 @using Alexr03.Common.Web.Extensions
 @using Kendo.Mvc.UI
 @using TCAdmin.SDK.Web.MVC.Extensions
 @using TCAdminSubdomain.Configurations
+@using TCAdminSubdomain.Dns
 @using TCAdminSubdomain.Models.Objects
 @model TCAdminSubdomain.Configurations.Dynv6Configuration
 
 @{
-    var dynv6 = new DnsProviderType(2).DnsProvider;
+    var dynv6 = DynamicTypeBase.GetCurrent<DnsProviderType>().DnsProvider;
 }
 
 @using (Ajax.BeginForm(new AjaxOptions {OnSuccess = "TCAdmin.Ajax.ShowBasicDialog('Success', 'Successfully saved Dynv6 settings'); document.body.style.cursor = 'default';", OnFailure = "TCAdmin.Ajax.HandleAjaxFailure"}))
