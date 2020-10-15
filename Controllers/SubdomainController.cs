@@ -4,6 +4,7 @@ using Alexr03.Common.TCAdmin.Configuration;
 using Alexr03.Common.TCAdmin.Extensions;
 using Alexr03.Common.TCAdmin.Objects;
 using Alexr03.Common.Web.Extensions;
+using Alexr03.Common.Web.HttpResponses;
 using Newtonsoft.Json.Linq;
 using TCAdmin.SDK.Web.MVC.Controllers;
 using TCAdminSubdomain.Configurations;
@@ -96,7 +97,10 @@ namespace TCAdminSubdomain.Controllers
         public ActionResult GeneralConfigure(GeneralConfiguration model)
         {
             new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration").SetConfiguration(model);
-            return PartialView(model);
+            return new JsonNetResult(new
+            {
+                Message = "General Configuration successfully saved."
+            });
         }
     }
 }
