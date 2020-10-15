@@ -6,6 +6,6 @@
     "UninstallSql": "uninstall.sql"
   },
   "Dll": "TCAdminSubdomain.dll",
-  "MasterOnly": true,
+  "MasterOnly": false,
   "Dependencies": ["RestSharp.dll", "FluentCloudflare.dll", "Nager.PublicSuffix.dll"]
 }
