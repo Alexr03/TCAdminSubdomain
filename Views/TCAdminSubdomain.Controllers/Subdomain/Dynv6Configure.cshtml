@@ -41,7 +41,7 @@
                         <dd>@Html.Kendo().TextBoxFor(m => m.Token).HtmlAttributes(new {type = "password"})@Html.ValidationMessageFor(m => m.Token)@Html.TooltipFor(m => m.Token)</dd>
                         <div id="domainsList">
                             <div class="domains-section k-content wide">
-                                <label for="availableDomains" id="domains">Avaiable Domains</label>
+                                <label for="availableDomains" id="domains">Available Domains</label>
                                 <label for="allowedDomains" id="domains">Allowed Domains</label>
                                 @(Html.Kendo().ListBox()
                                     .Name("availableDomains".Prefix(typeof(Dynv6Configuration)))

@@ -7,7 +7,7 @@
 @using TCAdminSubdomain.Helpers
 @model TCAdminSubdomain.Configurations.GeneralConfiguration
 
-@using (Ajax.BeginForm(new AjaxOptions {OnSuccess = "TCAdmin.Ajax.ShowBasicDialog('Success', 'Successfully saved General settings'); document.body.style.cursor = 'default';", OnFailure = "TCAdmin.Ajax.HandleAjaxFailure"}))
+@using (Ajax.BeginForm(new AjaxOptions {OnSuccess = "Alexr03.Common.HandleAjaxSuccess", OnBegin = "Alexr03.Common.HandleAjaxBegin", OnFailure = "TCAdmin.Ajax.HandleAjaxFailure"}))
 {
     @Html.AntiForgeryToken()
     <div class="primary-toolbar">
