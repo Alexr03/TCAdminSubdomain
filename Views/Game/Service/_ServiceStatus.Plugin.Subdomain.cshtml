@@ -94,7 +94,7 @@
     function deleteSubdomain(){
         kendo.ui.progress($(document.body), true);
         $.ajax({
-            type: "DELETE",
+            type: "POST",
             url: "/Subdomain/Delete/@Model.ServiceId",
             contentType: "application/json; charset=utf-8",
             dataType: "json",

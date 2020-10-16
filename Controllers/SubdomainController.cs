@@ -38,7 +38,7 @@ namespace TCAdminSubdomain.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         [ParentAction("Create")]
         public ActionResult Delete(int id)
         {
