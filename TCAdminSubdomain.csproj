@@ -249,6 +249,10 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\Alexr03.Common.TCAdmin\Alexr03.Common.TCAdmin.csproj">
+        <Project>{14f91b86-ea4b-40b5-b86c-aa7cd2dbe275}</Project>
+        <Name>Alexr03.Common.TCAdmin</Name>
+      </ProjectReference>
       <ProjectReference Include="..\Alexr03.Common\Alexr03.Common.csproj">
         <Project>{f51453a6-0fef-4649-b1a4-57647de4a9df}</Project>
         <Name>Alexr03.Common</Name>
