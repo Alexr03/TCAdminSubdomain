@@ -67,6 +67,7 @@ namespace TCAdminSubdomain.Controllers
             return View();
         }
 
+        [ParentAction("Configure")]
         public ActionResult ProviderConfigure(int id)
         {
             var dnsProviderType = DynamicTypeBase.GetCurrent<DnsProviderType>();
@@ -88,6 +89,7 @@ namespace TCAdminSubdomain.Controllers
             return PartialView($"{dnsProviderType.Configuration.View}", bindModel);
         }
 
+        [ParentAction("Configure")]
         public ActionResult GeneralConfigure()
         {
             return PartialView(new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration").GetConfiguration());
