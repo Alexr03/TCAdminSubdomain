@@ -3,6 +3,7 @@
 @using TCAdmin.GameHosting.SDK.Objects
 @using TCAdminSubdomain
 @using TCAdminSubdomain.Configurations
+@using TCAdminSubdomain.Controllers
 @using TCAdminSubdomain.Helpers
 @model Models.Game.ServiceModel
 @{
@@ -20,23 +21,26 @@
 <script>
     let li = document.getElementById("ServiceInformation").getElementsByTagName("dl")[0].getElementsByTagName("dd")[0];
     const node = document.createElement('div');
-    @if (subdomainSet)
+    @if (SubdomainController.ServiceIsAllowed(service))
     {
-        <text>
+        if (subdomainSet)
+        {
+            <text>
             node.innerHTML = `<dt>Subdomain</dt>
                                 <dd><strong>@subdomainValue</strong>
                                 @Html.Raw("&nbsp;&nbsp;&nbsp;&nbsp;")
                                 <a id="updateSubdomainButton" style="margin-top:-10px;">Change</a>
                                 </dd>`
         </text>
-    }
-    else
-    {
-        <text>
+        }
+        else
+        {
+            <text>
             node.innerHTML = `<dt>Subdomain</dt>
                                 <dd><a id="updateSubdomainButton">Create</a></dd>
                                 `
         </text>
+        }
     }
 
     li.parentNode.insertBefore(node, li.nextSibling);

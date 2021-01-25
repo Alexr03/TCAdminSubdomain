@@ -26,6 +26,9 @@
                 <li>
                     <dl>
                         <h2>General Settings</h2>
+                        <dt>@Html.LabelFor(m => m.AllowedGameVariable)</dt>
+                        <dd>@Html.Kendo().TextBoxFor(m => m.AllowedGameVariable)@Html.ValidationMessageFor(m => m.AllowedGameVariable)@Html.TooltipFor(m => m.AllowedGameVariable)</dd>
+
                         <dt>@Html.LabelFor(m => m.Prefix)</dt>
                         <dd>@Html.Kendo().TextBoxFor(m => m.Prefix)@Html.ValidationMessageFor(m => m.Prefix)@Html.TooltipFor(m => m.Prefix)</dd>
 

@@ -22,6 +22,7 @@ namespace TCAdminSubdomain.Controllers
         public ActionResult Create(int id, string subdomain, string baseDomain)
         {
             var service = new Service(id);
+            if (!ServiceIsAllowed(service)) return this.SendError("This service is not authorised for subdomains");
             try
             {
                 var generalConfiguration = new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration").GetConfiguration();
@@ -103,6 +104,22 @@ namespace TCAdminSubdomain.Controllers
             {
                 Message = "General Configuration successfully saved."
             });
+        }
+
+        public static bool ServiceIsAllowed(Service service)
+        {
+            var generalConfiguration = new DatabaseConfiguration<GeneralConfiguration>(Globals.ModuleId, "GeneralConfiguration").GetConfiguration();
+            var key = generalConfiguration.AllowedGameVariable;
+            if (string.IsNullOrEmpty(key))
+            {
+                return true;
+            }
+            if (service.Variables.HasValueAndSet(key))
+            {
+                return (bool) service.Variables[key];
+            }
+
+            return false;
         }
     }
 }
