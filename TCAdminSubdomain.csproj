@@ -259,6 +259,7 @@
       </ProjectReference>
     </ItemGroup>
     <ItemGroup>
+      <Content Include=".github\workflows\dotnet.yml" />
       <Content Include=".gitignore" />
       <Content Include="install.sql" />
       <Content Include="Module.json" />

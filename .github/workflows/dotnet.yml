@@ -1,0 +1,82 @@
+name: Build [.NET 5]
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          path: Alexr03.Common
+          repository: Alexr03/Common
+      - uses: actions/checkout@v2
+        with:
+          path: Alexr03.Common.TCAdmin
+          repository: Alexr03/Common.TCAdmin
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      - name: Nuget Restore
+        run: |
+          nuget sources add -name TCAdmin -Source https://nexus-repository.openshift.alexr03.dev/repository/tcadmin-group/index.json
+          nuget restore -PackagesDirectory ../packages
+      - name: Build Common Libraries
+        uses: Amadevus/pwsh-script@v2.0.0
+        with:
+          script: |
+            Move-Item -Path Alexr03.Common -Destination ..
+            Move-Item -Path Alexr03.Common.TCAdmin -Destination ..
+            nuget restore ../Alexr03.Common -PackagesDirectory ../packages
+            nuget restore ../Alexr03.Common.TCAdmin -PackagesDirectory ../packages
+      - name: Build using .NET 4.7.2
+        run: msbuild TCAdminCustomMods.csproj
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          # Artifact name
+          name: BuildDir
+          # A file, directory or wildcard pattern that describes what to upload
+          path: .
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.8
+        with:
+          # Artifact name
+          name: BuildDir
+          # Destination path
+          path: .
+      - name: Package Module
+        uses: Alexr03/TCAdmin-Module-Packager-Action@master
+      - name: Delete latest release
+        uses: ame-yu/action-delete-latest-release@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: REL_${{ github.ref}}
+          release_name: Release v1.0.2
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: output.zip
+          asset_name: output.zip
+          asset_content_type: application/zip
