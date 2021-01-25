@@ -5,7 +5,7 @@ namespace TCAdminSubdomain.Configurations
 {
     public class GeneralConfiguration
     {
-        public string AllowedGameVariable { get; set; } = "SD::ALLOW";
+        public string AllowedGameVariable { get; set; } = "SD-ALLOW";
         public string Prefix { get; set; } = "";
         public string Postfix { get; set; } = "";
         public int MinimumLength { get; set; } = 4;
