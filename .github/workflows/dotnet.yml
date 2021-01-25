@@ -3,7 +3,7 @@ name: Build [.NET 5]
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ master, serverblend/* ]
   pull_request:
     branches: [ master ]
 
