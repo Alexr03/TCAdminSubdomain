@@ -17,7 +17,7 @@ namespace TCAdminSubdomain.Events.Commands
 
         public override CommandResponse ProcessCommand(object sender, IntegrationEventArgs args)
         {
-            if (args.Command != "AfterMove")
+            if (args.Command != "AfterMove" || args.Command != "AfterDelete")
             {
                 return new CommandResponse(Globals.ModuleId, ReturnStatus.Ok);
             }
