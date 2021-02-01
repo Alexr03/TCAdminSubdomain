@@ -2,10 +2,12 @@
 using Alexr03.Common.TCAdmin.Extensions;
 using TCAdmin.GameHosting.SDK.Objects;
 using TCAdmin.SDK.Integration;
+using TCAdmin.SDK.Objects;
 using TCAdminSubdomain.Configurations;
 using TCAdminSubdomain.Dns;
 using TCAdminSubdomain.Helpers;
 using TCAdminSubdomain.Models.Objects;
+using Service = TCAdmin.GameHosting.SDK.Objects.Service;
 
 namespace TCAdminSubdomain.Events.Commands
 {
