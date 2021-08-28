@@ -1,8 +1,8 @@
-﻿INSERT INTO tc_modules (module_id, display_name, version, enabled, config_page, component_directory,
+INSERT INTO tc_modules (module_id, display_name, version, enabled, config_page, component_directory,
                         security_class)
 VALUES ('ceb0b7e0-59f6-4290-991d-b766b30f1ff1', 'Subdomain', '2.0', 1, null, null, null);
 
-# ----------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO tc_panelbar_categories (category_id, module_id, display_name, view_order, parent_category_id,
                                     parent_module_id, page_id, panelbar_icon)
@@ -24,7 +24,7 @@ VALUES (2, 'ceb0b7e0-59f6-4290-991d-b766b30f1ff1', 40, '07405876-e8c2-4b24-a774-
         'MenuIcons/Base/ServerComponents24x24.png', 'MenuIcons/Base/ServerComponents16x16.png', 1, 1071,
         '({07405876-e8c2-4b24-a774-4ef57f596384,0,8})', '({07405876-e8c2-4b24-a774-4ef57f596384,0,8})', null, null, '');
 
-# Tables ---------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 create table tcmodule_dns_providers
 (
@@ -43,7 +43,7 @@ INSERT INTO tcmodule_dns_providers (id, typeName, configurationModuleId, configu
 VALUES (2, 'TCAdminSubdomain.Dns.Providers.Dynv6Provider, TCAdminSubdomain', 'ceb0b7e0-59f6-4290-991d-b766b30f1ff1', 3,
         '');
 
-# Configurations -------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO ar_common_configurations (id, moduleId, name, typeName, contents, app_data)
 VALUES (1, 'ceb0b7e0-59f6-4290-991d-b766b30f1ff1', 'GeneralConfiguration',
@@ -61,7 +61,7 @@ VALUES (3, 'ceb0b7e0-59f6-4290-991d-b766b30f1ff1', 'Dynv6Provider',
   <add key="AR_COMMON:ConfigurationView" value="Dynv6Configure" type="System.String,mscorlib" />
 </values>');
 
-# Service Events -------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO tc_module_commands (command_id, module_id, is_custom, description, sender_class, command_name,
                                 command_class, execute_order, enabled, can_disable, master_only)
