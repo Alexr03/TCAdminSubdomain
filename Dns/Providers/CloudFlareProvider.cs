@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using FluentCloudflare;
@@ -42,8 +43,9 @@ namespace TCAdminSubdomain.Dns.Providers
                     return true;
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                TCAdmin.SDK.LogManager.WriteError(ex);
                 return false;
             }
         }
